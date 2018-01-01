@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Novatree - Ayan Banerjee</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style>
+  html,body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+  }
+  body img{
+    width: 100%;
+  }
+  .hidden{
+    display: none;
+  }
+  .hidden-region{
+    position: fixed;
+    bottom:0;
+    right: 0;
+    height: 120px;
+    width: 120px;
+    background: transparent;
+    z-index: 900;
+  }
+  .hover-btn-wrapper{
+    position: fixed;
+    height: max-content;
+    bottom: 24px;
+    right: 24px;
+    transform: translateX(1000px);
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    padding: 42px 16px 16px 16px;
+    z-index: 999;
+    transition: all 0.3s ease;
+  }
+  .hoverbtns{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .hoverbtns .closeHover{
+    position: absolute;
+    top: -28px;
+    right: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .hover-btn-wrapper.is-visible{
+    transform: translateX(0px);
+  }
+  .hover-btn{
+    padding: 12px 18px;
+    color: #fff;
+    border-radius: 2px;
+    background: #00a69d;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 100;
+    margin-bottom: 12px;
+    text-decoration: none;
+  }
+  .hover-btn:last-child{
+    margin-bottom: 0;
+  }
+  </style>
+</head>
+<body>
+  <img id="btnHeader" class="back-image" src="Novatree Landing Page - btnHeader.png" alt="Project image">
+  <img id="btnFixed" class="back-image hidden" src="Novatree Landing Page - btnFixed.png" alt="Project image">
+  <img id="colorDoc" class="back-image hidden" src="Novatree Logo Documentation.png" alt="Project image">
+  <div class="hover-btn-wrapper">
+    <div class="hoverbtns">
+      <a href="#" onclick="displayImage('btnHeader')" class="hover-btn">Header Button</a>
+    <a href="#" onclick="displayImage('btnFixed')" class="hover-btn">Fixed Header</a>
+    <a href="#" onclick="displayImage('colorDoc')" class="hover-btn">Color Documentation</a>
+    <div class="closeHover" onclick="closeHover()">X</div>
+    </div>
+  </div>
+  <div class="hidden-region"></div>
+  <script>
+  var hiddenRegion = document.querySelector("div.hidden-region"),
+  hoverBtns = document.querySelector("div.hover-btn-wrapper"),
+  hoverBtn = document.querySelector("a.hover-btn"),
+  thisImage = document.querySelectorAll("img.back-image");
+
+  hiddenRegion.addEventListener("mouseenter", function(){
+    hoverBtns.classList.add("is-visible");
+  })
+
+  function closeHover(){
+    hoverBtns.classList.remove("is-visible");
+  }
+
+  function displayImage(el){
+    var imgId = el;
+    var showImage = document.getElementById(imgId);
+    for(var i = 0; i<thisImage.length; i++){
+      thisImage[i].classList.add("hidden");
+    }
+    showImage.classList.remove("hidden");
+  }
+  </script>
+</body>
+</html>
