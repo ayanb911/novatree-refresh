@@ -94,6 +94,10 @@
   hoverBtn = document.querySelector("a.hover-btn"),
   thisImage = document.querySelectorAll("img.back-image");
 
+  window.addEventListener("load", function(){
+    console.log("window has loaded");
+  })
+
   hiddenRegion.addEventListener("mouseenter", function(){
     hoverBtns.classList.add("is-visible");
   })
