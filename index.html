@@ -38,7 +38,7 @@
     background: #fff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     padding: 42px 16px 16px 16px;
-    z-index: 999;
+    z-index: 910;
     transition: all 0.3s ease;
   }
   .hoverbtns{
@@ -73,18 +73,133 @@
   .hover-btn:last-child{
     margin-bottom: 0;
   }
+
+  /* loader css */
+
+  .cssload-container{
+    position:relative;
+  }
+
+  .cssload-container.is-fixed{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+  }
+
+  .cssload-container div.loaderText{
+    position: absolute;
+    top: 64%;
+    left: 50%;
+    max-width: 36%;
+    font-size: 24px;
+    color: #000;
+    text-align: center;
+    transform: translate(-50%, -12%);
+    line-height: 1.5;
+  }
+
+  .cssload-whirlpool,
+  .cssload-whirlpool::before,
+  .cssload-whirlpool::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgb(204,204,204);
+    border-left-color: rgb(0,0,0);
+    border-radius: 974px;
+    -o-border-radius: 974px;
+    -ms-border-radius: 974px;
+    -webkit-border-radius: 974px;
+    -moz-border-radius: 974px;
+  }
+
+  .cssload-whirlpool {
+    margin: -24px 0 0 -24px;
+    height: 49px;
+    width: 49px;
+    animation: cssload-rotate 1150ms linear infinite;
+    -o-animation: cssload-rotate 1150ms linear infinite;
+    -ms-animation: cssload-rotate 1150ms linear infinite;
+    -webkit-animation: cssload-rotate 1150ms linear infinite;
+    -moz-animation: cssload-rotate 1150ms linear infinite;
+  }
+
+  .cssload-whirlpool::before {
+    content: "";
+    margin: -22px 0 0 -22px;
+    height: 43px;
+    width: 43px;
+    animation: cssload-rotate 1150ms linear infinite;
+    -o-animation: cssload-rotate 1150ms linear infinite;
+    -ms-animation: cssload-rotate 1150ms linear infinite;
+    -webkit-animation: cssload-rotate 1150ms linear infinite;
+    -moz-animation: cssload-rotate 1150ms linear infinite;
+  }
+
+  .cssload-whirlpool::after {
+    content: "";
+    margin: -28px 0 0 -28px;
+    height: 55px;
+    width: 55px;
+    animation: cssload-rotate 2300ms linear infinite;
+    -o-animation: cssload-rotate 2300ms linear infinite;
+    -ms-animation: cssload-rotate 2300ms linear infinite;
+    -webkit-animation: cssload-rotate 2300ms linear infinite;
+    -moz-animation: cssload-rotate 2300ms linear infinite;
+  }
+
+
+
+  @keyframes cssload-rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @-o-keyframes cssload-rotate {
+    100% {
+      -o-transform: rotate(360deg);
+    }
+  }
+
+  @-ms-keyframes cssload-rotate {
+    100% {
+      -ms-transform: rotate(360deg);
+    }
+  }
+
+  @-webkit-keyframes cssload-rotate {
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @-moz-keyframes cssload-rotate {
+    100% {
+      -moz-transform: rotate(360deg);
+    }
+  }
   </style>
 </head>
 <body>
+  <div class="cssload-container is-fixed">
+    <div class="cssload-whirlpool"></div>
+    <div class="loaderText">This contains 3 high-res images totalling 4.2 MB. It takes time to load.</div>
+  </div>
   <img id="btnHeader" class="back-image" src="Novatree Landing Page - btnHeader.png" alt="Project image">
   <img id="btnFixed" class="back-image hidden" src="Novatree Landing Page - btnFixed.png" alt="Project image">
   <img id="colorDoc" class="back-image hidden" src="Novatree Logo Documentation.png" alt="Project image">
   <div class="hover-btn-wrapper">
     <div class="hoverbtns">
       <a href="#" onclick="displayImage('btnHeader')" class="hover-btn">Header Button</a>
-    <a href="#" onclick="displayImage('btnFixed')" class="hover-btn">Fixed Header</a>
-    <a href="#" onclick="displayImage('colorDoc')" class="hover-btn">Color Documentation</a>
-    <div class="closeHover" onclick="closeHover()">X</div>
+      <a href="#" onclick="displayImage('btnFixed')" class="hover-btn">Fixed Header</a>
+      <a href="#" onclick="displayImage('colorDoc')" class="hover-btn">Color Documentation</a>
+      <div class="closeHover" onclick="closeHover()">X</div>
     </div>
   </div>
   <div class="hidden-region"></div>
@@ -92,10 +207,14 @@
   var hiddenRegion = document.querySelector("div.hidden-region"),
   hoverBtns = document.querySelector("div.hover-btn-wrapper"),
   hoverBtn = document.querySelector("a.hover-btn"),
-  thisImage = document.querySelectorAll("img.back-image");
+  thisImage = document.querySelectorAll("img.back-image"),
+  loader = document.querySelector(".cssload-container.is-fixed");
 
-  window.addEventListener("load", function(){
-    console.log("window has loaded");
+  window.addEventListener("load", function(event){
+    console.log(event);
+    if(event.returnValue){
+      loader.classList.add("hidden");
+    }
   })
 
   hiddenRegion.addEventListener("mouseenter", function(){
